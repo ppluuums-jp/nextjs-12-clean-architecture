@@ -1,6 +1,7 @@
-import React from "react";
+// eslint-disable-next-line import/named
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { within, userEvent } from "@storybook/testing-library";
+import React from "react";
 import { Page } from "./Page";
 
 export default {
