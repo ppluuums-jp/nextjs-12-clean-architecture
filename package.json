@@ -10,7 +10,8 @@
     "lint:fix": "yarn lint --fix",
     "format": "prettier --write --ignore-path .gitignore ./**/*.{js,jsx,ts,tsx,json}",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "./**/*.{ts,tsx}": [
