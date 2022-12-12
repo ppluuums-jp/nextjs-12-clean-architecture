@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "engines": {
+    "npm": "please_use_yarn_instead"
+  },
   "dependencies": {
     "@types/node": "18.11.13",
     "@types/react": "18.0.26",
