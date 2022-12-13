@@ -3,6 +3,7 @@ import { FSUser } from "./model/user";
 import { FSInsertUserParam } from "./model/insert-user-param";
 import { FSUpdateUserParam } from "./model/update-user-param";
 import firebaseAdmin, { firestore } from "firebase-admin";
+import WhereFilterOp = firestore.WhereFilterOp;
 
 export class FirestoreImpl implements Firestore {
   private readonly db: FirebaseFirestore.Firestore;
@@ -25,25 +26,18 @@ export class FirestoreImpl implements Firestore {
   }
 
   async findUserById(userId: string): Promise<FSUser> {
-    let collection = this.db.collection("/user");
-    let ss = await collection.where("id", "==", userId).get();
-    if (ss.empty) {
+    let collection = await this.db.collection("user");
+    let docs = await collection.doc(userId).get();
+    let data = docs.data();
+    if (data == null) {
       throw Error();
     }
-    let docs = ss.docs;
-    if (docs.length === 0) {
-      throw Error();
-    }
-    if (docs.length >= 2) {
-      throw Error();
-    }
-    let doc = docs[0].data();
     return {
-      createdAt: doc["created_at"],
-      gender: doc["gender"],
-      id: doc["id"],
-      name: doc["name"],
-      updatedAt: doc["updated_at"],
+      createdAt: data["created_at"],
+      gender: data["gender"],
+      id: data["id"],
+      name: data["name"],
+      updatedAt: data["updated_at"],
     };
   }
 
