@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { NextPage } from "next";
+import React from "react";
 
 const Home: NextPage = () => {
   const insertUser = async () => {
