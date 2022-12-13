@@ -12,8 +12,10 @@ export class FirestoreImpl implements Firestore {
     this.db = params.db;
   }
 
-  deleteUser(userId: string): Promise<void> {
-    return Promise.resolve(undefined);
+  async deleteUser(userId: string): Promise<void> {
+    let collection = await this.db.collection("user");
+    let doc = await collection.doc(userId);
+    await doc.delete();
   }
 
   async findUserById(userId: string): Promise<FSUser> {
