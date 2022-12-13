@@ -3,7 +3,10 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   const insertUser = async () => {
-    await axios.post("/api/item");
+    const res = await axios.get(
+      `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.HOTPEPPER_API_KEY}&lat=${process.env.LAT}&lng=${process.env.LNG}&range=${process.env.RANGE}&count=10&order=${process.env.ORDER}&format=${process.env.FORMAT}`
+    );
+    console.log(res);
   };
 
   return (
