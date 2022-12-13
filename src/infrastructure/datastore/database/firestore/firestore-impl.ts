@@ -43,7 +43,7 @@ export class FirestoreImpl implements Firestore {
       name: param.name,
       updatedAt: date,
     };
-    await collection.add(user);
+    await doc.create(user);
   }
 
   async updateUser(param: FSUpdateUserParam): Promise<void> {
@@ -57,7 +57,8 @@ export class FirestoreImpl implements Firestore {
       updatedAt: updatedAt,
     };
     const collection = await this.db.collection(FSCollectionPath.user);
-    await collection.add(user);
+    const doc = await collection.doc(param.userId);
+    await doc.update(user);
   }
 }
 
