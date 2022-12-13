@@ -2,14 +2,12 @@
 import firebaseAdmin from "firebase-admin";
 import { getFirestore } from "firebase-admin/firestore";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { FirestoreImpl } from "../../infrastructure/datastore/database/firestore/firestore-impl";
+import { FSUser } from "../../infrastructure/datastore/database/firestore/model/user";
 
-type Data = {
-  uuid: string;
-  name: string;
-  createdAt: Date;
-};
+type Data = FSUser;
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
@@ -25,14 +23,15 @@ export default function handler(
   }
 
   const db = getFirestore();
-  if (req.method === "POST") {
-    const docRef = db.collection(COLLECTION_NAME).doc();
-    const insertData = {
-      uuid: "12345",
-      name: "Yakuso",
-      createdAt: new Date(),
-    };
-    docRef.set(insertData);
-  }
+  let f = new FirestoreImpl({ db: db });
+  const docRef = db.collection(COLLECTION_NAME).doc();
+  const insertData = {
+    uuid: "12345",
+    name: "Yakuso",
+    createdAt: new Date(),
+  };
+  let data: FSUser = await f.findUserById("crWGsTrdaqvSqsbAx7TF");
+  // docRef.set(insertData);
   res.status(200);
+  res.json(data);
 }
