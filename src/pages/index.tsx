@@ -1,11 +1,10 @@
 import axios from "axios";
 import type { NextPage } from "next";
+import React from "react";
 
 const Home: NextPage = () => {
   const insertUser = async () => {
-    const res = await axios.get(
-      `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.HOTPEPPER_API_KEY}&lat=${process.env.LAT}&lng=${process.env.LNG}&range=${process.env.RANGE}&count=10&order=${process.env.ORDER}&format=${process.env.FORMAT}`
-    );
+    const res = await axios.get("/api/user");
     console.log(res);
   };
 

@@ -13,7 +13,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const COLLECTION_NAME = "item";
+  const COLLECTION_NAME = "user";
   if (!firebaseAdmin.apps.length) {
     firebaseAdmin.initializeApp({
       credential: firebaseAdmin.credential.cert({
