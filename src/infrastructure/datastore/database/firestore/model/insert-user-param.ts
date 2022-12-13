@@ -1,5 +1,5 @@
 export type FSInsertUserParam = {
   name: string;
 
-  gender?: number;
+  gender: number;
 };
