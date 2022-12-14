@@ -8,5 +8,6 @@ export class ReadUserUseCaseImpl implements ReadUserUseCase {
   }
   execute(params: { uuid: string }) {
     this.userRepository.findById(params);
+    this.userRepository.findAll();
   }
 }
