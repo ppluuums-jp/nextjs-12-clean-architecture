@@ -7,10 +7,10 @@ import { FSUser } from "../../infrastructure/datastore/database/firestore/model/
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<FSUser>
+  res: NextApiResponse<FSUser[]>
 ) {
   const firestore: FirestoreDB = container.get(TYPES.FirestoreDB);
-  const user = await firestore.findUserById("crWGsTrdaqvSqsbAx7TF");
+  const user = await firestore.findAllUsers();
   res.json(user);
   res.status(200);
 }
