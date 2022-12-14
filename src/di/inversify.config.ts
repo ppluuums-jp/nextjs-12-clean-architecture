@@ -1,8 +1,9 @@
 import firebaseAdmin from "firebase-admin";
-import { getFirestore } from "firebase-admin/firestore";
 import { Container } from "inversify";
+import { UserRepository } from "../domain/repositories/user-repository";
 import { FirestoreDB } from "../infrastructure/datastore/database/firestore/firestore-db";
 import { FirestoreDBImpl } from "../infrastructure/datastore/database/firestore/firestore-db-impl";
+import { UserRepositoryImpl } from "../infrastructure/repositories/user-repository-impl";
 import { TYPES } from "./types";
 
 export const container = new Container();
@@ -18,3 +19,4 @@ container.bind<FirestoreDB>(TYPES.FirestoreDB).toConstantValue(
     },
   })
 );
+container.bind<UserRepository>(TYPES.UserRepository).to(UserRepositoryImpl);
