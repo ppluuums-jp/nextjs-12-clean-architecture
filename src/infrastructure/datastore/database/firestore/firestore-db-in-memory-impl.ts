@@ -71,4 +71,8 @@ export class FirestoreDBInMemoryImpl implements FirestoreDB {
       }
     });
   }
+
+  async findAllUsers(): Promise<FSUser[]> {
+    return this.users;
+  }
 }
