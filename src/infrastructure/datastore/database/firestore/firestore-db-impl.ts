@@ -67,6 +67,14 @@ export class FirestoreDBImpl implements FirestoreDB {
     const doc = await collection.doc(param.userId);
     await doc.update(user);
   }
+
+  async findAllUsers(): Promise<FSUser[]> {
+    const collection = await this.db
+      .collection(FSCollectionPath.user)
+      .withConverter(fsUserConverter);
+    const ss = await collection.get();
+    return ss.docs.map((v) => v.data());
+  }
 }
 
 enum FSCollectionPath {
