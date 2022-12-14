@@ -1,6 +1,6 @@
 export type FSUpdateUserParam = {
   userId: string;
-  name: string;
+  name?: string;
 
-  gender: number;
+  gender?: number;
 };

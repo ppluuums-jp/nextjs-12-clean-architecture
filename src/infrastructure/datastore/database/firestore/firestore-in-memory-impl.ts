@@ -23,7 +23,7 @@ export class FirestoreInMemoryImpl implements Firestore {
 
   private latestId: number = 2;
   async deleteUser(userId: string): Promise<void> {
-    let user = await this.findUserById(userId);
+    const user = await this.findUserById(userId);
     this.users.forEach((v, i) => {
       if (v.id === user.id) {
         delete this.users[i];
@@ -32,7 +32,7 @@ export class FirestoreInMemoryImpl implements Firestore {
   }
 
   async findUserById(userId: string): Promise<FSUser> {
-    let users = this.users.filter((v) => v.id === userId);
+    const users = this.users.filter((v) => v.id === userId);
     if (users.length === 0) {
       throw Error();
     }
@@ -43,25 +43,28 @@ export class FirestoreInMemoryImpl implements Firestore {
   }
 
   async insertUser(param: FSInsertUserParam): Promise<void> {
-    let id = `${++this.latestId}`;
-    let createdAt = new Date();
-    let updatedAt = new Date();
-    let user: FSUser = {
+    const id = `${++this.latestId}`;
+    const createdAt = new Date();
+    const user: FSUser = {
       id: id,
       name: param.name,
       gender: param.gender,
       createdAt: createdAt,
-      updatedAt: updatedAt,
+      updatedAt: createdAt,
     };
     this.users.push(user);
   }
 
   async updateUser(param: FSUpdateUserParam): Promise<void> {
-    let user = await this.findUserById(param.userId);
-    let updatedAt = new Date();
-    user.name = param.name;
-    user.gender = param.gender;
-    user.updatedAt = updatedAt;
+    const oldUser = await this.findUserById(param.userId);
+    const updatedAt = new Date();
+    const user: FSUser = {
+      createdAt: oldUser.createdAt,
+      gender: param.gender ?? oldUser.gender,
+      id: param.userId,
+      name: param.name ?? oldUser.name,
+      updatedAt: updatedAt,
+    };
     this.users.forEach((v, i) => {
       if (v.id === user.id) {
         this.users.splice(i, 1, user);
