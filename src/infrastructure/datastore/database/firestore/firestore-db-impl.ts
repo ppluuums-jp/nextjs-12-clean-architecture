@@ -1,10 +1,13 @@
 import firebaseAdmin, { firestore } from "firebase-admin";
-import { Firestore } from "./firestore";
+import { injectable } from "inversify";
+import { FirestoreDB } from "./firestore-db";
 import { FSInsertUserParam } from "./model/insert-user-param";
 import { FSUpdateUserParam } from "./model/update-user-param";
 import { FSUser, fsUserConverter } from "./model/user";
+import "reflect-metadata";
 
-export class FirestoreImpl implements Firestore {
+@injectable()
+export class FirestoreDBImpl implements FirestoreDB {
   private readonly db: FirebaseFirestore.Firestore;
 
   constructor(params: { db: FirebaseFirestore.Firestore }) {
