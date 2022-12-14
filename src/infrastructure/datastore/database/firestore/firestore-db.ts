@@ -2,7 +2,7 @@ import { FSInsertUserParam } from "./model/insert-user-param";
 import { FSUpdateUserParam } from "./model/update-user-param";
 import { FSUser } from "./model/user";
 
-export interface Firestore {
+export interface FirestoreDB {
   findUserById(userId: string): Promise<FSUser>;
 
   insertUser(param: FSInsertUserParam): Promise<void>;

@@ -1,9 +1,9 @@
-import { Firestore } from "./firestore";
+import { FirestoreDB } from "./firestore-db";
 import { FSInsertUserParam } from "./model/insert-user-param";
 import { FSUpdateUserParam } from "./model/update-user-param";
 import { FSUser } from "./model/user";
 
-export class FirestoreInMemoryImpl implements Firestore {
+export class FirestoreDBInMemoryImpl implements FirestoreDB {
   private users: FSUser[] = [
     {
       id: "1",
