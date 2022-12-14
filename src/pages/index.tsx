@@ -1,7 +1,9 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Box, Button, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import type { NextPage } from "next";
 import React from "react";
+import { CrudButton } from "../presentation/components/organisms/crud-button";
+import { CrudPage } from "../presentation/components/pages/crud-page";
 
 const Home: NextPage = () => {
   const toast = useToast();
@@ -17,11 +19,7 @@ const Home: NextPage = () => {
     // console.log(res);
   };
 
-  return (
-    <Button colorScheme="blue" onClick={() => insertUser()}>
-      Insert User
-    </Button>
-  );
+  return <CrudPage />;
 };
 
 export default Home;
