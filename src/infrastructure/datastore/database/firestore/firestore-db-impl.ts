@@ -1,4 +1,5 @@
-import firebaseAdmin, { firestore } from "firebase-admin";
+import firebaseAdmin, { AppOptions, firestore } from "firebase-admin";
+import { getFirestore } from "firebase-admin/firestore";
 import { injectable } from "inversify";
 import { FirestoreDB } from "./firestore-db";
 import { FSInsertUserParam } from "./model/insert-user-param";
@@ -10,8 +11,11 @@ import "reflect-metadata";
 export class FirestoreDBImpl implements FirestoreDB {
   private readonly db: FirebaseFirestore.Firestore;
 
-  constructor(params: { db: FirebaseFirestore.Firestore }) {
-    this.db = params.db;
+  constructor(params: { options: AppOptions }) {
+    if (!firebaseAdmin.apps.length) {
+      firebaseAdmin.initializeApp(params.options);
+    }
+    this.db = getFirestore();
   }
 
   async deleteUser(userId: string): Promise<void> {

@@ -7,17 +7,14 @@ import { TYPES } from "./types";
 
 export const container = new Container();
 
-if (!firebaseAdmin.apps.length) {
-  firebaseAdmin.initializeApp({
-    credential: firebaseAdmin.credential.cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, "\n"),
-    }),
-  });
-}
-
-const db = getFirestore();
-container
-  .bind<FirestoreDB>(TYPES.FirestoreDB)
-  .toConstantValue(new FirestoreDBImpl({ db: db }));
+container.bind<FirestoreDB>(TYPES.FirestoreDB).toConstantValue(
+  new FirestoreDBImpl({
+    options: {
+      credential: firebaseAdmin.credential.cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, "\n"),
+      }),
+    },
+  })
+);
