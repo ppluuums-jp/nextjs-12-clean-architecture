@@ -1,8 +1,7 @@
-import { Box, Button, useToast } from "@chakra-ui/react";
-import axios from "axios";
+import { useToast } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import React from "react";
-import { CrudButton } from "../presentation/components/organisms/crud-button";
+import { RecoilRoot } from "recoil";
 import { CrudPage } from "../presentation/components/pages/crud-page";
 
 const Home: NextPage = () => {
@@ -19,7 +18,11 @@ const Home: NextPage = () => {
     // console.log(res);
   };
 
-  return <CrudPage />;
+  return (
+    <RecoilRoot>
+      <CrudPage />
+    </RecoilRoot>
+  );
 };
 
 export default Home;
