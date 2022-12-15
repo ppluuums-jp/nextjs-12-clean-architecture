@@ -1,11 +1,12 @@
-import firebaseAdmin, { AppOptions, firestore } from "firebase-admin";
+import firebaseAdmin, { AppOptions } from "firebase-admin";
 import { getFirestore } from "firebase-admin/firestore";
 import { injectable } from "inversify";
+import "reflect-metadata";
+import { NotFoundError } from "../../../../core/error/not-found-error";
 import { FirestoreDB } from "./firestore-db";
 import { FSInsertUserParam } from "./model/insert-user-param";
 import { FSUpdateUserParam } from "./model/update-user-param";
 import { FSUser, fsUserConverter } from "./model/user";
-import "reflect-metadata";
 
 @injectable()
 export class FirestoreDBImpl implements FirestoreDB {
@@ -29,11 +30,8 @@ export class FirestoreDBImpl implements FirestoreDB {
     const doc = await collection.doc(userId);
     const ss = await doc.withConverter(fsUserConverter).get();
     const data = ss.data();
-    if (!ss.exists) {
-      throw Error();
-    }
     if (data == null) {
-      throw Error();
+      throw new NotFoundError();
     }
     return data;
   }
