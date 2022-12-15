@@ -3,6 +3,6 @@ import { UseCase } from "./usecase";
 export interface DeleteUserUseCase
   extends UseCase<Promise<void>, DeleteUserUseCaseParam> {}
 
-type DeleteUserUseCaseParam = {
+export type DeleteUserUseCaseParam = {
   uuid: string;
 };

@@ -4,6 +4,6 @@ import { UseCase } from "./usecase";
 export interface ReadUserUseCase
   extends UseCase<Promise<User>, ReadUserUseCaseParam> {}
 
-type ReadUserUseCaseParam = {
+export type ReadUserUseCaseParam = {
   uuid: string;
 };
