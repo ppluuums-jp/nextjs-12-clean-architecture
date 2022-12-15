@@ -1,9 +1,7 @@
-import { User } from "../entities/user";
-import { Gender } from "../values/gender";
 import { UseCase } from "./usecase";
 
 export interface DeleteUserUseCase
-  extends UseCase<void, DeleteUserUseCaseParam> {}
+  extends UseCase<Promise<void>, DeleteUserUseCaseParam> {}
 
 type DeleteUserUseCaseParam = {
   uuid: string;
