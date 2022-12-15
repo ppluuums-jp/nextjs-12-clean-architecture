@@ -5,7 +5,7 @@ import {
 } from "../../domain/usecases/create-user-usecase";
 
 export class CreateUserUseCaseImpl implements CreateUserUseCase {
-  readonly userRepository: UserRepository;
+  private readonly userRepository: UserRepository;
 
   constructor(params: { userRepository: UserRepository }) {
     this.userRepository = params.userRepository;

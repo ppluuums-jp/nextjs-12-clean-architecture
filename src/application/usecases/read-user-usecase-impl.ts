@@ -6,7 +6,7 @@ import {
 } from "../../domain/usecases/read-user-usecase";
 
 export class ReadUserUseCaseImpl implements ReadUserUseCase {
-  readonly userRepository: UserRepository;
+  private readonly userRepository: UserRepository;
 
   constructor(params: { userRepository: UserRepository }) {
     this.userRepository = params.userRepository;

@@ -5,7 +5,7 @@ import {
 } from "../../domain/usecases/delete-user-usecase";
 
 export class DeleteUserUseCaseImpl implements DeleteUserUseCase {
-  readonly userRepository: UserRepository;
+  private readonly userRepository: UserRepository;
 
   constructor(params: { userRepository: UserRepository }) {
     this.userRepository = params.userRepository;

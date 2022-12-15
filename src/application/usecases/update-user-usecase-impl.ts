@@ -5,7 +5,7 @@ import {
 } from "../../domain/usecases/update-user-usecase";
 
 export class UpdateUserUseCaseImpl implements UpdateUserUseCase {
-  readonly userRepository: UserRepository;
+  private readonly userRepository: UserRepository;
 
   constructor(params: { userRepository: UserRepository }) {
     this.userRepository = params.userRepository;
