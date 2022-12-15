@@ -1,13 +1,20 @@
 import { UserRepository } from "../../domain/repositories/user-repository";
-import { CreateUserUseCase } from "../../domain/usecases/create-user-usecase";
-import { Gender } from "../../domain/values/gender";
+import {
+  CreateUserUseCase,
+  CreateUserUseCaseParam,
+} from "../../domain/usecases/create-user-usecase";
 
 export class CreateUserUseCaseImpl implements CreateUserUseCase {
   readonly userRepository: UserRepository;
+
   constructor(params: { userRepository: UserRepository }) {
     this.userRepository = params.userRepository;
   }
-  execute(params: { name: string; gender: Gender }) {
-    this.userRepository.create(params);
+
+  async execute(param: CreateUserUseCaseParam): Promise<void> {
+    await this.userRepository.create({
+      name: param.name,
+      gender: param.gender,
+    });
   }
 }
