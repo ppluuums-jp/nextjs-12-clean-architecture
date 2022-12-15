@@ -1,14 +1,18 @@
+import { inject, injectable } from "inversify";
+import "reflect-metadata";
+import { TYPES } from "../../di/types";
 import { User } from "../../domain/entities/user";
-import { UserRepository } from "../../domain/repositories/user-repository";
+import type { UserRepository } from "../../domain/repositories/user-repository";
 import {
   ReadAllUsersUseCase,
   ReadAllUsersUseCaseParam,
 } from "../../domain/usecases/read-all-users-usecase";
 
+@injectable()
 export class ReadAllUsersUseCaseImpl implements ReadAllUsersUseCase {
   private readonly userRepository: UserRepository;
 
-  constructor({ userRepository }: { userRepository: UserRepository }) {
+  constructor(@inject(TYPES.UserRepository) userRepository: UserRepository) {
     this.userRepository = userRepository;
   }
 
