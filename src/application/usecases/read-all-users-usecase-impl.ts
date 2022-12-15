@@ -1,24 +1,22 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { TYPES } from "../../di/types";
+import { User } from "../../domain/entities/user";
 import type { UserRepository } from "../../domain/repositories/user-repository";
 import {
-  CreateUserUseCase,
-  CreateUserUseCaseParam,
-} from "../../domain/usecases/create-user-usecase";
+  ReadAllUsersUseCase,
+  ReadAllUsersUseCaseParam,
+} from "../../domain/usecases/read-all-users-usecase";
 
 @injectable()
-export class CreateUserUseCaseImpl implements CreateUserUseCase {
+export class ReadAllUsersUseCaseImpl implements ReadAllUsersUseCase {
   private readonly userRepository: UserRepository;
 
   constructor(@inject(TYPES.UserRepository) userRepository: UserRepository) {
     this.userRepository = userRepository;
   }
 
-  async execute(param: CreateUserUseCaseParam): Promise<void> {
-    await this.userRepository.create({
-      name: param.name,
-      gender: param.gender,
-    });
+  async execute(param: ReadAllUsersUseCaseParam): Promise<User[]> {
+    return await this.userRepository.findAll();
   }
 }

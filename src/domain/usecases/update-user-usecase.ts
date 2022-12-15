@@ -2,9 +2,9 @@ import { Gender } from "../values/gender";
 import { UseCase } from "./usecase";
 
 export interface UpdateUserUseCase
-  extends UseCase<void, UpdateUserUseCaseParam> {}
+  extends UseCase<Promise<void>, UpdateUserUseCaseParam> {}
 
-type UpdateUserUseCaseParam = {
+export type UpdateUserUseCaseParam = {
   uuid: string;
   name: string;
   gender: Gender;

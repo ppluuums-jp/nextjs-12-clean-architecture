@@ -1,13 +1,25 @@
-import { UserRepository } from "../../domain/repositories/user-repository";
-import { UpdateUserUseCase } from "../../domain/usecases/update-user-usecase";
-import { Gender } from "../../domain/values/gender";
+import { inject, injectable } from "inversify";
+import "reflect-metadata";
+import { TYPES } from "../../di/types";
+import type { UserRepository } from "../../domain/repositories/user-repository";
+import {
+  UpdateUserUseCase,
+  UpdateUserUseCaseParam,
+} from "../../domain/usecases/update-user-usecase";
 
+@injectable()
 export class UpdateUserUseCaseImpl implements UpdateUserUseCase {
-  readonly userRepository: UserRepository;
-  constructor(params: { userRepository: UserRepository }) {
-    this.userRepository = params.userRepository;
+  private readonly userRepository: UserRepository;
+
+  constructor(@inject(TYPES.UserRepository) userRepository: UserRepository) {
+    this.userRepository = userRepository;
   }
-  execute(params: { uuid: string; name: string; gender: Gender }) {
-    this.userRepository.update(params);
+
+  async execute(param: UpdateUserUseCaseParam): Promise<void> {
+    await this.userRepository.update({
+      uuid: param.uuid,
+      name: param.name,
+      gender: param.gender,
+    });
   }
 }
