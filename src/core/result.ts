@@ -1,14 +1,16 @@
-export class Result<T> {
-  readonly value?: T;
-  readonly error?: Error;
-  private readonly isSuccess: boolean;
-  private readonly isFailure: boolean;
+export class Result<T, E extends Error> {
+  private readonly value: T | E;
 
-  constructor({ value, error }: { value?: T; error?: Error }) {
+  private constructor(value: T | E) {
     this.value = value;
-    this.error = error;
-    this.isSuccess = value != undefined;
-    this.isFailure = error != undefined;
+  }
+
+  static success<T>(value: T): Result<T, Error> {
+    return new Result<T, Error>(value);
+  }
+
+  static failure<E extends Error>(error: E): Result<any, E> {
+    return new Result<any, E>(error);
   }
 
   when({
@@ -16,33 +18,12 @@ export class Result<T> {
     failure,
   }: {
     success: (data: T) => unknown;
-    failure: (error: Error) => unknown;
+    failure: (error: E) => unknown;
   }) {
-    if (this.isSuccess) {
-      return success(this.value as T);
-    } else if (this.isFailure) {
-      return failure(this.error as Error);
+    if (this.value instanceof Error) {
+      return failure(this.value);
+    } else {
+      return success(this.value);
     }
   }
 }
-
-// example usage
-// function exec(): Result<number> {
-//   return new Result({ value: 1 });
-// }
-//
-// export function testResult() {
-//   const r = exec();
-//   return r.when({
-//     success: function (data) {
-//       // エンティティに変換
-//       return data;
-//     },
-//     failure: function (error) {
-//       if (error instanceof NotFoundError) {
-//         // doSomething
-//       }
-//       return new Result({error:error});
-//     },
-//   });
-// }
