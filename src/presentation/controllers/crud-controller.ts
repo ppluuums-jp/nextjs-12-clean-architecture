@@ -1,16 +1,15 @@
-import { useRecoilState } from "recoil";
-import { createState } from "../state/atoms/create";
-import { deleteState } from "../state/atoms/delete";
-import { readState } from "../state/atoms/read";
-import { updateState } from "../state/atoms/update";
-import { ToastState } from "../state/types/toast-state";
+import axios from "axios";
 
 export const useCrudController = () => {
-  function createUsers() {}
+  async function createUsers() {
+    const url = "/api/users";
+  }
 
-  async function readUsers() {
-    const res = await fetch("/api/users").then((data) => data.json());
-    if (res != null) {
+  async function readAllUsers() {
+    const url = "/api/users";
+    const res = await axios(url);
+    if (res.data != null) {
+      console.log(res.data);
       return "success";
     } else {
       return "error";
@@ -21,7 +20,7 @@ export const useCrudController = () => {
 
   return {
     createUsers,
-    readUsers,
+    readAllUsers,
     updateUsers,
     deleteUsers,
   };

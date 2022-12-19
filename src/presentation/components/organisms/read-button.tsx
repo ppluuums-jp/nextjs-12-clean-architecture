@@ -7,7 +7,6 @@ import { toastHandler } from "../molecules/toast";
 
 export const ReadButton = (): JSX.Element => {
   const controller = useCrudController();
-  const toastState = useRecoilValue(readState);
   return (
     <RoundButton
       props={{
@@ -20,7 +19,7 @@ export const ReadButton = (): JSX.Element => {
         rounded: "md",
         text: "Read",
         onClick: async () => {
-          const status = await controller.readUsers();
+          const status = await controller.readAllUsers();
           toastHandler({
             props: {
               title: "Button clicked.",
