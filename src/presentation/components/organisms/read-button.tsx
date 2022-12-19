@@ -1,8 +1,10 @@
 import React from "react";
+import { ReadAllUserController } from "../../controllers/crud-controller";
 import { RoundButton } from "../molecules/round-button";
 import { toastHandler } from "../molecules/toast";
 
 export const ReadButton = (): JSX.Element => {
+  const [toastState, stateHandler] = ReadAllUserController();
   return (
     <RoundButton
       props={{
@@ -14,17 +16,19 @@ export const ReadButton = (): JSX.Element => {
         variant: "solid",
         rounded: "md",
         text: "Read",
-        onClick: () =>
+        onClick: () => {
           toastHandler({
             props: {
               title: "Button clicked.",
               description: "We are gonna write description here",
-              status: "success",
+              status: toastState,
               position: "top",
               duration: 5000,
               isClosable: true,
             },
-          }),
+          });
+          stateHandler();
+        },
       }}
     ></RoundButton>
   );

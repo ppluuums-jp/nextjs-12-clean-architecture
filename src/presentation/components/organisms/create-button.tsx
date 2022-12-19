@@ -9,6 +9,7 @@ export const CreateButton = (): JSX.Element => {
   const updateToastState = () => {
     setToastState("error");
   };
+
   return (
     <RoundButton
       props={{

@@ -8,7 +8,9 @@ type Props = {
   duration: number;
   isClosable: boolean;
 };
+
 const { ToastContainer, toast } = createStandaloneToast();
+
 export function toastHandler({ props }: { props: Props }) {
   toast({
     title: props.title,
