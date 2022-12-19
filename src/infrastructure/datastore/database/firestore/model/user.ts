@@ -1,9 +1,8 @@
 import { firestore } from "firebase-admin";
-import { FSGender, fsGenderConvertor } from "./gender";
 import { User } from "../../../../../domain/entities/user";
+import { FSGender, fsGenderConvertor } from "./gender";
 import DocumentData = firestore.DocumentData;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
-import FirestoreDataConverter = firestore.FirestoreDataConverter;
 
 export type FSUser = {
   id: string;
