@@ -5,60 +5,24 @@ import { readState } from "../state/atoms/read";
 import { updateState } from "../state/atoms/update";
 import { ToastState } from "../state/types/toast-state";
 
-export function ReadUserController() {}
+export const useCrudController = () => {
+  function createUsers() {}
 
-export function CreateUserController(): [ToastState, () => void] {
-  const [toastState, setState] = useRecoilState(createState);
-  const res = fetch("/api/users").then((data) => data.json());
-  const handler = () => {
+  async function readUsers() {
+    const res = await fetch("/api/users").then((data) => data.json());
     if (res != null) {
-      setState("success");
-      console.log(res);
+      return "success";
     } else {
-      setState("error");
+      return "error";
     }
-  };
-  return [toastState, handler];
-}
+  }
+  function updateUsers() {}
+  function deleteUsers() {}
 
-export function ReadAllUserController(): [ToastState, () => void] {
-  const [toastState, setState] = useRecoilState(readState);
-  const res = fetch("/api/users").then((data) => data.json());
-  const handler = () => {
-    if (res != null) {
-      setState("success");
-      console.log(res);
-    } else {
-      setState("error");
-    }
+  return {
+    createUsers,
+    readUsers,
+    updateUsers,
+    deleteUsers,
   };
-  return [toastState, handler];
-}
-
-export function UpdateUserController(): [ToastState, () => void] {
-  const [toastState, setState] = useRecoilState(updateState);
-  const res = fetch("/api/users").then((data) => data.json());
-  const handler = () => {
-    if (res != null) {
-      setState("success");
-      console.log(res);
-    } else {
-      setState("error");
-    }
-  };
-  return [toastState, handler];
-}
-
-export function DeleteUserController(): [ToastState, () => void] {
-  const [toastState, setState] = useRecoilState(deleteState);
-  const res = fetch("/api/users").then((data) => data.json());
-  const handler = () => {
-    if (res != null) {
-      setState("success");
-      console.log(res);
-    } else {
-      setState("error");
-    }
-  };
-  return [toastState, handler];
-}
+};

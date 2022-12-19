@@ -1,10 +1,13 @@
 import React from "react";
-import { ReadAllUserController } from "../../controllers/crud-controller";
+import { useRecoilValue } from "recoil";
+import { useCrudController } from "../../controllers/crud-controller";
+import { readState } from "../../state/atoms/read";
 import { RoundButton } from "../molecules/round-button";
 import { toastHandler } from "../molecules/toast";
 
 export const ReadButton = (): JSX.Element => {
-  const [toastState, stateHandler] = ReadAllUserController();
+  const controller = useCrudController();
+  const toastState = useRecoilValue(readState);
   return (
     <RoundButton
       props={{
@@ -16,18 +19,18 @@ export const ReadButton = (): JSX.Element => {
         variant: "solid",
         rounded: "md",
         text: "Read",
-        onClick: () => {
+        onClick: async () => {
+          const status = await controller.readUsers();
           toastHandler({
             props: {
               title: "Button clicked.",
               description: "We are gonna write description here",
-              status: toastState,
+              status: status,
               position: "top",
               duration: 5000,
               isClosable: true,
             },
           });
-          stateHandler();
         },
       }}
     ></RoundButton>
