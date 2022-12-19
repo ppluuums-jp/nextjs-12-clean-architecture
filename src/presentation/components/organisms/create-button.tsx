@@ -1,15 +1,10 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { createState } from "../../state/atoms/create";
+import { useCrudController } from "../../controllers/crud-controller";
 import { RoundButton } from "../molecules/round-button";
 import { toastHandler } from "../molecules/toast";
 
 export const CreateButton = (): JSX.Element => {
-  const [toastState, setToastState] = useRecoilState(createState);
-  const updateToastState = () => {
-    setToastState("error");
-  };
-
+  const controller = useCrudController();
   return (
     <RoundButton
       props={{
@@ -21,18 +16,18 @@ export const CreateButton = (): JSX.Element => {
         variant: "solid",
         rounded: "md",
         text: "Create",
-        onClick: () => {
+        onClick: async () => {
+          const status = await controller.createUsers();
           toastHandler({
             props: {
               title: "Button clicked.",
               description: "We are gonna write description here",
-              status: toastState,
+              status: status,
               position: "top",
               duration: 5000,
               isClosable: true,
             },
-          }),
-            updateToastState();
+          });
         },
       }}
     ></RoundButton>
