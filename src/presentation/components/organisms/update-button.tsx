@@ -17,7 +17,7 @@ export const UpdateButton = (): JSX.Element => {
         rounded: "md",
         text: "Update",
         onClick: async () => {
-          const toastParams = await controller.readAllUsers();
+          const toastParams = await controller.updateUsers();
           toastHandler({
             props: {
               title: toastParams.title,

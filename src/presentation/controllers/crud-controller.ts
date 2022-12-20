@@ -3,7 +3,6 @@ import { CreateUserRequestBody } from "../../pages/api/users";
 import {
   toastCreateParams,
   toastDeleteParams,
-  toastParams,
   toastReadParams,
   toastUpdateParams,
 } from "./lib/toast-params";
@@ -17,7 +16,7 @@ export const useCrudController = () => {
     const res = await axios.get(url);
 
     // set max document size 10
-    if (res.data.length < 11) {
+    if (res.data.length < 10) {
       try {
         await axios.post(url, query);
         return toastCreateParams.success;

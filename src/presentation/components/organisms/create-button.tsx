@@ -17,7 +17,7 @@ export const CreateButton = (): JSX.Element => {
         rounded: "md",
         text: "Create",
         onClick: async () => {
-          const toastParams = await controller.readAllUsers();
+          const toastParams = await controller.createUsers();
           toastHandler({
             props: {
               title: toastParams.title,
