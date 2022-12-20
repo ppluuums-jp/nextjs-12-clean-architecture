@@ -17,7 +17,7 @@ export const DeleteButton = (): JSX.Element => {
         rounded: "md",
         text: "Delete",
         onClick: async () => {
-          const toastParams = await controller.deleteUsers();
+          const toastParams = await controller.deleteUser();
           toastHandler({
             props: {
               title: toastParams.title,
