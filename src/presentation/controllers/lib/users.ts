@@ -2,15 +2,27 @@ import { CreateUserRequestBody } from "../../../pages/api/users";
 
 export const users: CreateUserRequestBody[] = [
   {
-    name: "Shimpei Kodama",
+    name: "Emma",
+    gender: "female",
+  },
+  {
+    name: "James",
     gender: "male",
   },
   {
-    name: "Kodai Nakahara",
+    name: "Olivia",
+    gender: "female",
+  },
+  {
+    name: "Jack",
     gender: "male",
   },
   {
-    name: "Ryo Takano",
+    name: "Amelia",
+    gender: "female",
+  },
+  {
+    name: "Charlie",
     gender: "male",
   },
 ];
