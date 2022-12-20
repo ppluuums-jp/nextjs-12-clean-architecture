@@ -17,12 +17,12 @@ export const DeleteButton = (): JSX.Element => {
         rounded: "md",
         text: "Delete",
         onClick: async () => {
-          const status = await controller.deleteUsers();
+          const toastParams = await controller.readAllUsers();
           toastHandler({
             props: {
-              title: "Button clicked.",
-              description: "We are gonna write description here",
-              status: status,
+              title: toastParams.title,
+              description: toastParams.description,
+              status: toastParams.status,
               position: "top",
               duration: 5000,
               isClosable: true,

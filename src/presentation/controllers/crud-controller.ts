@@ -1,5 +1,12 @@
 import axios from "axios";
 import { CreateUserRequestBody } from "../../pages/api/users";
+import {
+  toastCreateParams,
+  toastDeleteParams,
+  toastParams,
+  toastReadParams,
+  toastUpdateParams,
+} from "./lib/toast-params";
 import { users } from "./lib/users";
 
 export const useCrudController = () => {
@@ -13,12 +20,12 @@ export const useCrudController = () => {
     if (res.data.length < 11) {
       try {
         await axios.post(url, query);
-        return "success";
+        return toastCreateParams.success;
       } catch (error) {
-        return "error";
+        return toastCreateParams.errorException;
       }
     } else {
-      return "error";
+      return toastCreateParams.errorCaptured;
     }
   }
 
@@ -26,9 +33,9 @@ export const useCrudController = () => {
     const url = "/api/users";
     const res = await axios.get(url);
     if (res.data.length > 0) {
-      return "success";
+      return toastReadParams.success;
     } else {
-      return "error";
+      return toastReadParams.errorCaptured;
     }
   }
 
@@ -43,12 +50,12 @@ export const useCrudController = () => {
       const uuid = res.data[Math.floor(Math.random() * res.data.length)].uuid;
       try {
         await axios.put(url + "/" + uuid, query);
-        return "success";
+        return toastUpdateParams.success;
       } catch (error) {
-        return "error";
+        return toastUpdateParams.errorException;
       }
     } else {
-      return "error";
+      return toastUpdateParams.errorCaptured;
     }
   }
 
@@ -61,12 +68,12 @@ export const useCrudController = () => {
       const uuid = res.data[Math.floor(Math.random() * res.data.length)].uuid;
       try {
         await axios.delete(url + "/" + uuid, uuid);
-        return "success";
+        return toastDeleteParams.success;
       } catch (error) {
-        return "error";
+        return toastDeleteParams.errorException;
       }
     } else {
-      return "error";
+      return toastDeleteParams.errorCaptured;
     }
   }
 

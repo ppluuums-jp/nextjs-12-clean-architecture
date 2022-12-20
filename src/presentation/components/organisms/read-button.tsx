@@ -1,7 +1,5 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 import { useCrudController } from "../../controllers/crud-controller";
-import { readState } from "../../state/atoms/read";
 import { RoundButton } from "../molecules/round-button";
 import { toastHandler } from "../molecules/toast";
 
@@ -19,12 +17,12 @@ export const ReadButton = (): JSX.Element => {
         rounded: "md",
         text: "Read",
         onClick: async () => {
-          const status = await controller.readAllUsers();
+          const toastParams = await controller.readAllUsers();
           toastHandler({
             props: {
-              title: "Button clicked.",
-              description: "We are gonna write description here",
-              status: status,
+              title: toastParams.title,
+              description: toastParams.description,
+              status: toastParams.status,
               position: "top",
               duration: 5000,
               isClosable: true,
