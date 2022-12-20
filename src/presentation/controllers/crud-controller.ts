@@ -9,7 +9,7 @@ import {
 import { users } from "./lib/users";
 
 export const useCrudController = () => {
-  async function createUsers() {
+  async function createUser() {
     const url = "/api/users";
     const query: CreateUserRequestBody =
       users[Math.floor(Math.random() * users.length)];
@@ -38,7 +38,7 @@ export const useCrudController = () => {
     }
   }
 
-  async function updateUsers() {
+  async function updateUser() {
     const url = "/api/users";
     const query: CreateUserRequestBody =
       users[Math.floor(Math.random() * users.length)];
@@ -58,7 +58,7 @@ export const useCrudController = () => {
     }
   }
 
-  async function deleteUsers() {
+  async function deleteUser() {
     const url = "/api/users";
     const res = await axios.get(url);
 
@@ -77,9 +77,9 @@ export const useCrudController = () => {
   }
 
   return {
-    createUsers,
+    createUser,
     readAllUsers,
-    updateUsers,
-    deleteUsers,
+    updateUser,
+    deleteUser,
   };
 };
