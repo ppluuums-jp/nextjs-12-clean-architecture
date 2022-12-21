@@ -4,11 +4,7 @@ import { RecoilRoot } from "recoil";
 import { CrudPage } from "../presentation/components/pages/crud-page";
 
 const Home: NextPage = () => {
-  return (
-    <RecoilRoot>
-      <CrudPage />
-    </RecoilRoot>
-  );
+  return <CrudPage />;
 };
 
 export default Home;
