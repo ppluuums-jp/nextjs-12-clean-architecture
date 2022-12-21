@@ -1,4 +1,7 @@
 import axios from "axios";
+import { container } from "../../di/inversify.config";
+import { TYPES } from "../../di/types";
+import { ReadAllUsersUseCase } from "../../domain/usecases/read-all-users-usecase";
 import { CreateUserRequestBody } from "../../pages/api/users";
 import {
   toastCreateParams,
@@ -29,9 +32,10 @@ export const useCrudController = () => {
   }
 
   async function readAllUsers() {
-    const url = "/api/users";
-    const res = await axios.get(url);
-    if (res.data.length > 0) {
+    const res = await container
+      .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
+      .execute({});
+    if (res.length > 0) {
       return toastReadParams.success;
     } else {
       return toastReadParams.errorCaptured;
