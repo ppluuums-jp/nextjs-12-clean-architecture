@@ -1,22 +1,22 @@
-import firebaseAdmin, { AppOptions } from "firebase-admin";
-import { getFirestore } from "firebase-admin/firestore";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { NotFoundError } from "../../../../core/error/not-found-error";
 import { FirestoreDB } from "./firestore-db";
 import { FSInsertUserParam } from "./model/insert-user-param";
 import { FSUpdateUserParam } from "./model/update-user-param";
-import { FSUser, fsUserConverter } from "./model/user";
+import { FSUser } from "./model/user";
 
 @injectable()
 export class FirestoreDBImpl implements FirestoreDB {
-  private readonly db: FirebaseFirestore.Firestore;
+  private readonly db: firebase.firestore.Firestore;
 
-  constructor(params: { options: AppOptions }) {
-    if (!firebaseAdmin.apps.length) {
-      firebaseAdmin.initializeApp(params.options);
+  constructor(params: { options: Object }) {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(params.options);
     }
-    this.db = getFirestore();
+    this.db = firebase.firestore();
   }
 
   async deleteUser(userId: string): Promise<void> {
@@ -28,12 +28,19 @@ export class FirestoreDBImpl implements FirestoreDB {
   async findUserById(userId: string): Promise<FSUser> {
     const collection = await this.db.collection(FSCollectionPath.user);
     const doc = await collection.doc(userId);
-    const ss = await doc.withConverter(fsUserConverter).get();
+    const ss = await doc.get();
     const data = ss.data();
     if (data == null) {
       throw new NotFoundError();
     }
-    return data;
+    const res: FSUser = {
+      createdAt: data["createdAt"],
+      gender: data["gender"],
+      id: data["id"],
+      name: data["name"],
+      updatedAt: data["updatedAt"],
+    };
+    return res;
   }
 
   async insertUser(param: FSInsertUserParam): Promise<void> {
@@ -48,7 +55,7 @@ export class FirestoreDBImpl implements FirestoreDB {
       name: param.name,
       updatedAt: date,
     };
-    await doc.create(user);
+    await doc.update(user);
   }
 
   async updateUser(param: FSUpdateUserParam): Promise<void> {
@@ -67,11 +74,18 @@ export class FirestoreDBImpl implements FirestoreDB {
   }
 
   async findAllUsers(): Promise<FSUser[]> {
-    const collection = await this.db
-      .collection(FSCollectionPath.user)
-      .withConverter(fsUserConverter);
+    const collection = await this.db.collection(FSCollectionPath.user);
     const ss = await collection.get();
-    return ss.docs.map((v) => v.data());
+    return ss.docs.map((v) => {
+      const data = v.data();
+      return {
+        createdAt: data["createdAt"],
+        gender: data["gender"],
+        id: data["id"],
+        name: data["name"],
+        updatedAt: data["updatedAt"],
+      };
+    });
   }
 }
 
