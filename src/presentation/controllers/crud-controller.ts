@@ -27,7 +27,6 @@ export const useCrudController = () => {
           .execute({ gender: query.gender, name: query.name });
         return toastCreateParams.success;
       } catch (error) {
-        console.error(error);
         return toastCreateParams.errorException;
       }
     } else {
