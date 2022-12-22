@@ -10,6 +10,7 @@ export const CrudPage = (): JSX.Element => {
         <Container my={10}>
           <Title
             props={{
+              id: "crud-page",
               title: "CRUD PAGE",
             }}
           ></Title>
