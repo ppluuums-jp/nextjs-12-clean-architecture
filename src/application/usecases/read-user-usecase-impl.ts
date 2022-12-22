@@ -1,5 +1,6 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
+import { Failure, Result, Success } from "../../core/result";
 import { TYPES } from "../../di/types";
 import { User } from "../../domain/entities/user";
 import type { UserRepository } from "../../domain/repositories/user-repository";
@@ -16,7 +17,12 @@ export class ReadUserUseCaseImpl implements ReadUserUseCase {
     this.userRepository = userRepository;
   }
 
-  async execute(param: ReadUserUseCaseParam): Promise<User> {
-    return await this.userRepository.findById({ uuid: param.uuid });
+  async execute(param: ReadUserUseCaseParam): Promise<Result<User, Error>> {
+    const result = await this.userRepository.findById({ uuid: param.uuid });
+    if (result.isSuccess()) {
+      return new Success(result.value);
+    } else {
+      return new Failure(result.error);
+    }
   }
 }

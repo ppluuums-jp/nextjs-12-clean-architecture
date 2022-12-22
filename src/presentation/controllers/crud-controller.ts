@@ -20,17 +20,21 @@ export const useCrudController = () => {
       .execute({});
 
     // set max document size 10
-    if (res.length < 10) {
-      try {
-        await container
+    if (res.isSuccess()) {
+      if (res.value.length < 10) {
+        const result = await container
           .get<CreateUserUseCase>(TYPES.CreateUserUseCase)
           .execute({ gender: query.gender, name: query.name });
-        return toastCreateParams.success;
-      } catch (error) {
-        return toastCreateParams.errorException;
+        if (result.isSuccess()) {
+          return toastCreateParams.success;
+        } else {
+          return toastCreateParams.errorCaptured;
+        }
+      } else {
+        return toastCreateParams.errorCaptured;
       }
     } else {
-      return toastCreateParams.errorCaptured;
+      return toastReadParams.errorCaptured;
     }
   }
 
@@ -38,8 +42,12 @@ export const useCrudController = () => {
     const res = await container
       .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
       .execute({});
-    if (res.length > 0) {
-      return toastReadParams.success;
+    if (res.isSuccess()) {
+      if (res.value.length > 0) {
+        return toastReadParams.success;
+      } else {
+        return toastReadParams.errorCaptured;
+      }
     } else {
       return toastReadParams.errorCaptured;
     }
@@ -52,18 +60,23 @@ export const useCrudController = () => {
       .execute({});
 
     // update random user with random user data
-    if (res.length > 0) {
-      const uuid = res[Math.floor(Math.random() * res.length)].uuid;
-      try {
-        await container
+    if (res.isSuccess()) {
+      if (res.value.length > 0) {
+        const uuid =
+          res.value[Math.floor(Math.random() * res.value.length)].uuid;
+        const result = await container
           .get<UpdateUserUseCase>(TYPES.UpdateUserUseCase)
           .execute({ gender: query.gender, name: query.name, uuid: uuid });
-        return toastUpdateParams.success;
-      } catch (error) {
-        return toastUpdateParams.errorException;
+        if (result.isSuccess()) {
+          return toastUpdateParams.success;
+        } else {
+          return toastUpdateParams.errorCaptured;
+        }
+      } else {
+        return toastUpdateParams.errorCaptured;
       }
     } else {
-      return toastUpdateParams.errorCaptured;
+      return toastReadParams.errorCaptured;
     }
   }
 
@@ -73,18 +86,23 @@ export const useCrudController = () => {
       .execute({});
 
     // delete random user
-    if (res.length > 0) {
-      const uuid = res[Math.floor(Math.random() * res.length)].uuid;
-      try {
-        await container
+    if (res.isSuccess()) {
+      if (res.value.length > 0) {
+        const uuid =
+          res.value[Math.floor(Math.random() * res.value.length)].uuid;
+        const result = await container
           .get<DeleteUserUseCase>(TYPES.DeleteUserUseCase)
           .execute({ uuid: uuid });
-        return toastDeleteParams.success;
-      } catch (error) {
-        return toastDeleteParams.errorException;
+        if (result.isSuccess()) {
+          return toastDeleteParams.success;
+        } else {
+          return toastDeleteParams.errorException;
+        }
+      } else {
+        return toastDeleteParams.errorCaptured;
       }
     } else {
-      return toastDeleteParams.errorCaptured;
+      return toastReadParams.errorCaptured;
     }
   }
 

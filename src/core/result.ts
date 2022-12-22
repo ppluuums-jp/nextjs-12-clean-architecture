@@ -1,29 +1,33 @@
-export class Result<T, E extends Error> {
-  private readonly value: T | E;
+export type Result<T, E extends Error> = Success<T> | Failure<E>;
 
-  private constructor(value: T | E) {
+export class Success<T> {
+  readonly value: T;
+
+  constructor(value: T) {
     this.value = value;
   }
 
-  static success<T>(value: T): Result<T, Error> {
-    return new Result<T, Error>(value);
+  isSuccess(): this is Success<T> {
+    return true;
   }
 
-  static failure<E extends Error>(error: E): Result<any, E> {
-    return new Result<any, E>(error);
+  isFailure(): this is Failure<Error> {
+    return false;
+  }
+}
+
+export class Failure<E extends Error> {
+  readonly error: E;
+
+  constructor(error: E) {
+    this.error = error;
   }
 
-  when({
-    success,
-    failure,
-  }: {
-    success: (data: T) => unknown;
-    failure: (error: E) => unknown;
-  }) {
-    if (this.value instanceof Error) {
-      return failure(this.value);
-    } else {
-      return success(this.value);
-    }
+  isSuccess(): this is Success<unknown> {
+    return false;
+  }
+
+  isFailure(): this is Failure<E> {
+    return true;
   }
 }
