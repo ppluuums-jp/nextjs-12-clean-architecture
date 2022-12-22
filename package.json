@@ -11,7 +11,8 @@
     "format": "prettier --write --ignore-path .gitignore ./**/*.{js,jsx,ts,tsx,json}",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:unit": "jest --env=jsdom --verbose"
   },
   "lint-staged": {
     "./src/**/*.{ts,tsx}": [
@@ -19,6 +20,15 @@
       "yarn format",
       "yarn lint:fix"
     ]
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/.next/",
+      "<rootDir>/node_modules/"
+    ],
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
+    }
   },
   "engines": {
     "npm": "please_use_yarn_instead"
