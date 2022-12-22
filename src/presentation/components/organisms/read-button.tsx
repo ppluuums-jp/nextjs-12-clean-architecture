@@ -8,6 +8,7 @@ export const ReadButton = (): JSX.Element => {
   return (
     <RoundButton
       props={{
+        id: "read-button",
         width: "150px",
         height: "100px",
         colorScheme: "red",

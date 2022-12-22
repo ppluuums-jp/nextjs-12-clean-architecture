@@ -2,6 +2,7 @@ import { Box, Button, ButtonGroup } from "@chakra-ui/react";
 import React from "react";
 
 type Props = {
+  id: string;
   width: string;
   height: string;
   colorScheme: "blue" | "red" | "yellow" | "green";
@@ -16,6 +17,7 @@ type Props = {
 export const RoundButton = ({ props }: { props: Props }): JSX.Element => {
   return (
     <Button
+      id={props.id}
       width={props.width}
       height={props.height}
       colorScheme={props.colorScheme}
@@ -31,6 +33,7 @@ export const RoundButton = ({ props }: { props: Props }): JSX.Element => {
 };
 
 RoundButton.defaultProps = {
+  Id: "",
   width: "150px",
   height: "100px",
   colorScheme: "blue",

@@ -8,6 +8,7 @@ export const DeleteButton = (): JSX.Element => {
   return (
     <RoundButton
       props={{
+        id: "delete-button",
         width: "150px",
         height: "100px",
         colorScheme: "green",
