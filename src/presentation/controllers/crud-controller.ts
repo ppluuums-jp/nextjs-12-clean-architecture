@@ -76,7 +76,7 @@ export const useCrudController = () => {
         return toastUpdateParams.errorCaptured;
       }
     } else {
-      return toastCreateParams.errorCaptured;
+      return toastReadParams.errorCaptured;
     }
   }
 
@@ -102,7 +102,7 @@ export const useCrudController = () => {
         return toastDeleteParams.errorCaptured;
       }
     } else {
-      return toastCreateParams.errorCaptured;
+      return toastReadParams.errorCaptured;
     }
   }
 
