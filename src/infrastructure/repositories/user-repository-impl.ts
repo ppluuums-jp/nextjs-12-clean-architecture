@@ -1,5 +1,6 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
+import { Failure, Result, Success } from "../../core/result";
 import { TYPES } from "../../di/types";
 import { User } from "../../domain/entities/user";
 import { UserRepository } from "../../domain/repositories/user-repository";
@@ -16,37 +17,46 @@ export class UserRepositoryImpl implements UserRepository {
     this.firestoreDB = firestoreDB;
   }
 
-  async create(params: { name: string; gender: Gender }): Promise<void> {
+  async create(params: {
+    name: string;
+    gender: Gender;
+  }): Promise<Result<boolean, Error>> {
     const result = await this.firestoreDB.insertUser({
       name: params.name,
       gender: fsGenderConvertor.fromEntity(params.gender),
     });
     if (result.isSuccess()) {
+      return new Success(true);
     } else {
-      throw result.error;
+      return new Failure(result.error);
     }
   }
 
-  async delete(param: { uuid: string }): Promise<void> {
-    await this.firestoreDB.deleteUser(param.uuid);
+  async delete(param: { uuid: string }): Promise<Result<boolean, Error>> {
+    const result = await this.firestoreDB.deleteUser(param.uuid);
+    if (result.isSuccess()) {
+      return new Success(true);
+    } else {
+      return new Failure(result.error);
+    }
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<Result<User[], Error>> {
     const result = await this.firestoreDB.findAllUsers();
     if (result.isSuccess()) {
       const users = result.value;
-      return users.map(fsUserConverter.toEntity);
+      return new Success(users.map(fsUserConverter.toEntity));
     } else {
-      throw result.error;
+      return new Failure(result.error);
     }
   }
 
-  async findById(params: { uuid: string }): Promise<User> {
+  async findById(params: { uuid: string }): Promise<Result<User, Error>> {
     const result = await this.firestoreDB.findUserById(params.uuid);
     if (result.isSuccess()) {
-      return fsUserConverter.toEntity(result.value);
+      return new Success(fsUserConverter.toEntity(result.value));
     } else {
-      throw result.error;
+      return new Failure(result.error);
     }
   }
 
@@ -54,15 +64,16 @@ export class UserRepositoryImpl implements UserRepository {
     uuid: string;
     name: string;
     gender: Gender;
-  }): Promise<void> {
+  }): Promise<Result<boolean, Error>> {
     const result = await this.firestoreDB.updateUser({
       gender: fsGenderConvertor.fromEntity(params.gender),
       name: params.name,
       userId: params.uuid,
     });
     if (result.isSuccess()) {
+      return new Success(true);
     } else {
-      throw result.error;
+      return new Failure(result.error);
     }
   }
 }
