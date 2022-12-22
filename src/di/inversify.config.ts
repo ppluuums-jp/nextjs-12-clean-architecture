@@ -28,6 +28,7 @@ container.bind<FirestoreDB>(TYPES.FirestoreDB).toConstantValue(
       messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
       appId: process.env.FIREBASE_APP_ID,
       databaseURL: `https://${process.env.FIREBASE_PROJECT_ID}.firebaseio.com`,
+      measurementId: process.env.FIREBASE_MEASUREMENT_ID,
     },
   })
 );
