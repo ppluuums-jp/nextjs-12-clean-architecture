@@ -43,13 +43,13 @@ export class FirestoreDBImpl implements FirestoreDB {
   }
 
   async insertUser(param: FSInsertUserParam): Promise<void> {
-    const id = firestore.doc(this.db, FSCollectionPath.user).id;
-    const doc = firestore.doc(this.db, FSCollectionPath.user, id);
+    const collection = firestore.collection(this.db, FSCollectionPath.user);
+    const doc = firestore.doc(collection);
     const date = new Date();
     const user: FSUser = {
       createdAt: date,
       gender: param.gender,
-      id: id,
+      id: doc.id,
       name: param.name,
       updatedAt: date,
     };
