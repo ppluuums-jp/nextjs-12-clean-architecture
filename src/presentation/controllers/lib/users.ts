@@ -1,6 +1,6 @@
-import { CreateUserRequestBody } from "../../../pages/api/users";
+import { Gender } from "../../../domain/values/gender";
 
-export const users: CreateUserRequestBody[] = [
+export const users: { name: string; gender: Gender }[] = [
   {
     name: "Emma",
     gender: "female",

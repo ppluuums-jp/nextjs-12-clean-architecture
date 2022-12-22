@@ -1,8 +1,9 @@
-import axios from "axios";
 import { container } from "../../di/inversify.config";
 import { TYPES } from "../../di/types";
+import { CreateUserUseCase } from "../../domain/usecases/create-user-usecase";
+import { DeleteUserUseCase } from "../../domain/usecases/delete-user-usecase";
 import { ReadAllUsersUseCase } from "../../domain/usecases/read-all-users-usecase";
-import { CreateUserRequestBody } from "../../pages/api/users";
+import { UpdateUserUseCase } from "../../domain/usecases/update-user-usecase";
 import {
   toastCreateParams,
   toastDeleteParams,
@@ -13,15 +14,17 @@ import { users } from "./lib/users";
 
 export const useCrudController = () => {
   async function createUser() {
-    const url = "/api/users";
-    const query: CreateUserRequestBody =
-      users[Math.floor(Math.random() * users.length)];
-    const res = await axios.get(url);
+    const query = users[Math.floor(Math.random() * users.length)];
+    const res = await container
+      .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
+      .execute({});
 
     // set max document size 10
-    if (res.data.length < 10) {
+    if (res.length < 10) {
       try {
-        await axios.post(url, query);
+        await container
+          .get<CreateUserUseCase>(TYPES.CreateUserUseCase)
+          .execute({ gender: query.gender, name: query.name });
         return toastCreateParams.success;
       } catch (error) {
         return toastCreateParams.errorException;
@@ -43,16 +46,18 @@ export const useCrudController = () => {
   }
 
   async function updateUser() {
-    const url = "/api/users";
-    const query: CreateUserRequestBody =
-      users[Math.floor(Math.random() * users.length)];
-    const res = await axios.get(url);
+    const query = users[Math.floor(Math.random() * users.length)];
+    const res = await container
+      .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
+      .execute({});
 
     // update random user with random user data
-    if (res.data.length > 0) {
-      const uuid = res.data[Math.floor(Math.random() * res.data.length)].uuid;
+    if (res.length > 0) {
+      const uuid = res[Math.floor(Math.random() * res.length)].uuid;
       try {
-        await axios.put(url + "/" + uuid, query);
+        await container
+          .get<UpdateUserUseCase>(TYPES.UpdateUserUseCase)
+          .execute({ gender: query.gender, name: query.name, uuid: uuid });
         return toastUpdateParams.success;
       } catch (error) {
         return toastUpdateParams.errorException;
@@ -63,14 +68,17 @@ export const useCrudController = () => {
   }
 
   async function deleteUser() {
-    const url = "/api/users";
-    const res = await axios.get(url);
+    const res = await container
+      .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
+      .execute({});
 
     // delete random user
-    if (res.data.length > 0) {
-      const uuid = res.data[Math.floor(Math.random() * res.data.length)].uuid;
+    if (res.length > 0) {
+      const uuid = res[Math.floor(Math.random() * res.length)].uuid;
       try {
-        await axios.delete(url + "/" + uuid, uuid);
+        await container
+          .get<DeleteUserUseCase>(TYPES.DeleteUserUseCase)
+          .execute({ uuid: uuid });
         return toastDeleteParams.success;
       } catch (error) {
         return toastDeleteParams.errorException;
