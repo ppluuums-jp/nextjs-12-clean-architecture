@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+      // validate the data scheme
+      function isValidUser(user) {
+          return user.size() == 5
+           && 'createdAt' in user && user.createdAt is timestamp
+           && 'gender' in user && user.gender is string
+           && 'id' in user && user.id is string
+           && 'name' in user && user.name is string
+           && 'updatedAt' in user && user.updatedAt is string;
+
+        }
+    match /{document=**} {
+      // allow access temporary
+      allow read, write: if true;
+    }
+  }
+}

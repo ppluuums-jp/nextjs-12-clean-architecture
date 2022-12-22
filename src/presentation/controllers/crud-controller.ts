@@ -1,5 +1,9 @@
-import axios from "axios";
-import { CreateUserRequestBody } from "../../pages/api/users";
+import { container } from "../../di/inversify.config";
+import { TYPES } from "../../di/types";
+import { CreateUserUseCase } from "../../domain/usecases/create-user-usecase";
+import { DeleteUserUseCase } from "../../domain/usecases/delete-user-usecase";
+import { ReadAllUsersUseCase } from "../../domain/usecases/read-all-users-usecase";
+import { UpdateUserUseCase } from "../../domain/usecases/update-user-usecase";
 import {
   toastCreateParams,
   toastDeleteParams,
@@ -10,69 +14,95 @@ import { users } from "./lib/users";
 
 export const useCrudController = () => {
   async function createUser() {
-    const url = "/api/users";
-    const query: CreateUserRequestBody =
-      users[Math.floor(Math.random() * users.length)];
-    const res = await axios.get(url);
+    const query = users[Math.floor(Math.random() * users.length)];
+    const res = await container
+      .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
+      .execute({});
 
     // set max document size 10
-    if (res.data.length < 10) {
-      try {
-        await axios.post(url, query);
-        return toastCreateParams.success;
-      } catch (error) {
-        return toastCreateParams.errorException;
+    if (res.isSuccess()) {
+      if (res.value.length < 10) {
+        const result = await container
+          .get<CreateUserUseCase>(TYPES.CreateUserUseCase)
+          .execute({ gender: query.gender, name: query.name });
+        if (result.isSuccess()) {
+          return toastCreateParams.success;
+        } else {
+          return toastCreateParams.errorCaptured;
+        }
+      } else {
+        return toastCreateParams.errorCaptured;
       }
     } else {
-      return toastCreateParams.errorCaptured;
+      return toastReadParams.errorCaptured;
     }
   }
 
   async function readAllUsers() {
-    const url = "/api/users";
-    const res = await axios.get(url);
-    if (res.data.length > 0) {
-      return toastReadParams.success;
+    const res = await container
+      .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
+      .execute({});
+    if (res.isSuccess()) {
+      if (res.value.length > 0) {
+        return toastReadParams.success;
+      } else {
+        return toastReadParams.errorCaptured;
+      }
     } else {
       return toastReadParams.errorCaptured;
     }
   }
 
   async function updateUser() {
-    const url = "/api/users";
-    const query: CreateUserRequestBody =
-      users[Math.floor(Math.random() * users.length)];
-    const res = await axios.get(url);
+    const query = users[Math.floor(Math.random() * users.length)];
+    const res = await container
+      .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
+      .execute({});
 
     // update random user with random user data
-    if (res.data.length > 0) {
-      const uuid = res.data[Math.floor(Math.random() * res.data.length)].uuid;
-      try {
-        await axios.put(url + "/" + uuid, query);
-        return toastUpdateParams.success;
-      } catch (error) {
-        return toastUpdateParams.errorException;
+    if (res.isSuccess()) {
+      if (res.value.length > 0) {
+        const uuid =
+          res.value[Math.floor(Math.random() * res.value.length)].uuid;
+        const result = await container
+          .get<UpdateUserUseCase>(TYPES.UpdateUserUseCase)
+          .execute({ gender: query.gender, name: query.name, uuid: uuid });
+        if (result.isSuccess()) {
+          return toastUpdateParams.success;
+        } else {
+          return toastUpdateParams.errorCaptured;
+        }
+      } else {
+        return toastUpdateParams.errorCaptured;
       }
     } else {
-      return toastUpdateParams.errorCaptured;
+      return toastReadParams.errorCaptured;
     }
   }
 
   async function deleteUser() {
-    const url = "/api/users";
-    const res = await axios.get(url);
+    const res = await container
+      .get<ReadAllUsersUseCase>(TYPES.ReadAllUsersUseCase)
+      .execute({});
 
     // delete random user
-    if (res.data.length > 0) {
-      const uuid = res.data[Math.floor(Math.random() * res.data.length)].uuid;
-      try {
-        await axios.delete(url + "/" + uuid, uuid);
-        return toastDeleteParams.success;
-      } catch (error) {
-        return toastDeleteParams.errorException;
+    if (res.isSuccess()) {
+      if (res.value.length > 0) {
+        const uuid =
+          res.value[Math.floor(Math.random() * res.value.length)].uuid;
+        const result = await container
+          .get<DeleteUserUseCase>(TYPES.DeleteUserUseCase)
+          .execute({ uuid: uuid });
+        if (result.isSuccess()) {
+          return toastDeleteParams.success;
+        } else {
+          return toastDeleteParams.errorException;
+        }
+      } else {
+        return toastDeleteParams.errorCaptured;
       }
     } else {
-      return toastDeleteParams.errorCaptured;
+      return toastReadParams.errorCaptured;
     }
   }
 

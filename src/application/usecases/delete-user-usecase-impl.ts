@@ -1,5 +1,6 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
+import { Failure, Result, Success } from "../../core/result";
 import { TYPES } from "../../di/types";
 import type { UserRepository } from "../../domain/repositories/user-repository";
 import {
@@ -15,7 +16,14 @@ export class DeleteUserUseCaseImpl implements DeleteUserUseCase {
     this.userRepository = userRepository;
   }
 
-  async execute(param: DeleteUserUseCaseParam): Promise<void> {
-    await this.userRepository.delete({ uuid: param.uuid });
+  async execute(
+    param: DeleteUserUseCaseParam
+  ): Promise<Result<boolean, Error>> {
+    const result = await this.userRepository.delete({ uuid: param.uuid });
+    if (result.isSuccess()) {
+      return new Success(true);
+    } else {
+      return new Failure(result.error);
+    }
   }
 }
