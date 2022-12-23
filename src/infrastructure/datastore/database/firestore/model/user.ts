@@ -1,8 +1,5 @@
-import { firestore } from "firebase-admin";
 import { User } from "../../../../../domain/entities/user";
 import { FSGender, fsGenderConvertor } from "./gender";
-import DocumentData = firestore.DocumentData;
-import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
 
 export type FSUser = {
   id: string;
@@ -14,25 +11,6 @@ export type FSUser = {
 };
 
 export const fsUserConverter = {
-  toFirestore(user: FSUser): DocumentData {
-    return {
-      id: user.id,
-      name: user.name,
-      gender: user.gender,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
-  },
-  fromFirestore(snapshot: QueryDocumentSnapshot): FSUser {
-    const data = snapshot.data()!;
-    return {
-      id: data.id,
-      name: data.name,
-      gender: data.gender,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
-    };
-  },
   toEntity(user: FSUser): User {
     return {
       createdAt: user.createdAt,
