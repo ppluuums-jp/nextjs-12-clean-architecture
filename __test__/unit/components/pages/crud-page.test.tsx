@@ -1,43 +1,47 @@
-/**
- * @jest-environment jsdom
- */
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { CrudPage } from "../../../src/presentation/components/pages/crud-page";
+import { CrudPage } from "../../../../src/presentation/components/pages/crud-page";
 
-describe("should render each of CRUD buttons.", () => {
-  it("should render create button", () => {
+describe("Test Crud buttons", () => {
+  it("render create button", () => {
     render(<CrudPage />);
     expect(screen.getByRole("button", { name: "Create" }).id).toEqual(
       "create-button"
     );
   });
 
-  it("should render read button", () => {
+  it("render read button", () => {
     render(<CrudPage />);
     expect(screen.getByRole("button", { name: "Read" }).id).toEqual(
       "read-button"
     );
   });
 
-  it("should render update button", () => {
+  it("render update button", () => {
     render(<CrudPage />);
     expect(screen.getByRole("button", { name: "Update" }).id).toEqual(
       "update-button"
     );
   });
 
-  it("should render delete button", () => {
+  it("render delete button", () => {
     render(<CrudPage />);
     expect(screen.getByRole("button", { name: "Delete" }).id).toEqual(
       "delete-button"
     );
   });
+
+  it("render four buttons", () => {
+    render(<CrudPage />);
+    expect(screen.getAllByRole("button")).toHaveLength(4);
+  });
 });
 
-describe("should render the title.", () => {
-  it("should render a title", () => {
+describe("Test the Title", () => {
+  it("render a title", () => {
     render(<CrudPage />);
     expect(screen.getByText("CRUD PAGE")).toBeInTheDocument;
   });
 });
+
+// appear properly when a user click a button
