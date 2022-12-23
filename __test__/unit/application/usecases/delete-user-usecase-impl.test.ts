@@ -4,7 +4,6 @@ import { Failure, Success } from "../../../../src/core/result";
 import { User } from "../../../../src/domain/entities/user";
 import { UserRepository } from "../../../../src/domain/repositories/user-repository";
 import { DeleteUserUseCaseParam } from "../../../../src/domain/usecases/delete-user-usecase";
-import { UpdateUserUseCaseParam } from "../../../../src/domain/usecases/update-user-usecase";
 
 describe("DeleteUserUseCase", () => {
   let users: User[] = [
@@ -32,7 +31,7 @@ describe("DeleteUserUseCase", () => {
     const mock: TypeMoq.IMock<UserRepository> = TypeMoq.Mock.ofType();
     mock
       .setup((m) => m.delete(param))
-      .returns(async (p: UpdateUserUseCaseParam) => {
+      .returns(async () => {
         if (users.filter((v) => v.uuid === param.uuid).length === 0) {
           return new Failure(new Error());
         }
@@ -45,7 +44,7 @@ describe("DeleteUserUseCase", () => {
       });
 
     const usecase = new DeleteUserUseCaseImpl(mock.object);
-    const result = await usecase.execute(param);
+    await usecase.execute(param);
     const target = users.filter((v) => v.uuid === param.uuid);
     expect(target.length).toBe(0);
   });
@@ -58,7 +57,7 @@ describe("DeleteUserUseCase", () => {
     const mock: TypeMoq.IMock<UserRepository> = TypeMoq.Mock.ofType();
     mock
       .setup((m) => m.delete(param))
-      .returns(async (p: UpdateUserUseCaseParam) => {
+      .returns(async () => {
         if (users.filter((v) => v.uuid === param.uuid).length === 0) {
           return new Failure(new Error());
         }
