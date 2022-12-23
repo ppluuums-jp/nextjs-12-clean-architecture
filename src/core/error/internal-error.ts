@@ -1,2 +1,4 @@
 // 不明エラー
-export class InternalError extends Error {}
+export class InternalError extends Error {
+  name = "InternalError";
+}
