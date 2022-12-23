@@ -45,13 +45,6 @@ describe("DeleteUserUseCase", () => {
       });
 
     const usecase = new DeleteUserUseCaseImpl(mock.object);
-    const user: User = {
-      uuid: "1",
-      name: "name1",
-      gender: "female",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
     const result = await usecase.execute(param);
     const target = users.filter((v) => v.uuid === param.uuid);
     expect(target.length).toBe(0);
