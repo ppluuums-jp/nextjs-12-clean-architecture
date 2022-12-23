@@ -27,6 +27,13 @@ describe("CreateUserUseCase", () => {
       name: "name3",
       gender: "male",
     };
+    let user: User = {
+      createdAt: new Date(2022),
+      gender: "male",
+      name: "name3",
+      updatedAt: new Date(2022),
+      uuid: "3",
+    };
     const mock: TypeMoq.IMock<UserRepository> = TypeMoq.Mock.ofType();
     mock
       .setup((m) => m.create(param))
@@ -34,11 +41,19 @@ describe("CreateUserUseCase", () => {
         if (users.filter((v) => v.name === param.name).length !== 0) {
           return new Failure(new Error());
         }
+        users.push({
+          createdAt: new Date(2022),
+          gender: param.gender,
+          name: param.name,
+          updatedAt: new Date(2022),
+          uuid: "3",
+        });
         return new Success(true);
       });
     const usecase = new CreateUserUseCaseImpl(mock.object);
     const result = await usecase.execute(param);
-    expect(result.isSuccess()).toBe(true);
+    const target = users.filter((v) => v.uuid === "3")[0];
+    expect(JSON.stringify(target)).toBe(JSON.stringify(user));
   });
 
   test("[異常系] ユーザー作成", async () => {
@@ -57,7 +72,6 @@ describe("CreateUserUseCase", () => {
       });
     const usecase = new CreateUserUseCaseImpl(mock.object);
     const result = await usecase.execute(param);
-    console.log(users);
     expect(result.isSuccess()).toBe(false);
   });
 });
