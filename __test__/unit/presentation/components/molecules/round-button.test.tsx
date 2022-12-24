@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { RoundButton } from "../../../../src/presentation/components/molecules/round-button";
+import { RoundButton } from "../../../../../src/presentation/components/molecules/round-button";
 
 // tests props are passed properly
 describe("Test RoundButton props", () => {

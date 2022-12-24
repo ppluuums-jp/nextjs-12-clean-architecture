@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { CrudPage } from "../../../../src/presentation/components/pages/crud-page";
-import * as useCrudControllerModule from "../../../../src/presentation/controllers/crud-controller";
+import { CrudPage } from "../../../../../src/presentation/components/pages/crud-page";
+import * as useCrudControllerModule from "../../../../../src/presentation/controllers/crud-controller";
 import {
   toastCreateParams,
   toastDeleteParams,
   toastReadParams,
   toastUpdateParams,
-} from "../../../../src/presentation/controllers/lib/toast-params";
+} from "../../../../../src/presentation/controllers/lib/toast-params";
 
 describe("Test Crud buttons", () => {
   it("render create button", () => {
@@ -66,5 +66,6 @@ describe("Test the toast", () => {
       toastCreateParams.success
     );
     expect(mock).toHaveBeenCalled();
+    
   });
 });

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { Title } from "../../../../src/presentation/components/molecules/title";
+import { Title } from "../../../../../src/presentation/components/molecules/title";
 
 // tests props are passed properly
 describe("Test Title props", () => {
