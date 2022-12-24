@@ -1,6 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { CrudPage } from "../../../../src/presentation/components/pages/crud-page";
+import * as useCrudControllerModule from "../../../../src/presentation/controllers/crud-controller";
+import {
+  toastCreateParams,
+  toastDeleteParams,
+  toastReadParams,
+  toastUpdateParams,
+} from "../../../../src/presentation/controllers/lib/toast-params";
 
 describe("Test Crud buttons", () => {
   it("render create button", () => {
@@ -45,3 +52,19 @@ describe("Test the Title", () => {
 });
 
 // appear properly when a user click a button
+describe("Test the toast", () => {
+  it("render a toast", async () => {
+    const mock = jest
+      .spyOn(useCrudControllerModule, "useCrudController")
+      .mockReturnValue({
+        createUser: () => Promise.resolve(toastCreateParams.success),
+        readAllUsers: () => Promise.resolve(toastReadParams.success),
+        updateUser: () => Promise.resolve(toastUpdateParams.success),
+        deleteUser: () => Promise.resolve(toastDeleteParams.success),
+      });
+    expect(await useCrudControllerModule.useCrudController().createUser()).toBe(
+      toastCreateParams.success
+    );
+    expect(mock).toHaveBeenCalled();
+  });
+});
