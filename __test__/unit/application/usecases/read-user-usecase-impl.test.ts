@@ -3,7 +3,7 @@ import { ReadUserUseCaseImpl } from "../../../../src/application/usecases/read-u
 import { NotFoundError } from "../../../../src/core/error/not-found-error";
 import { Failure, Success } from "../../../../src/core/result";
 import { User } from "../../../../src/domain/entities/user";
-import { UserRepository } from "../../../../src/domain/repositories/user-repository";
+import { UserRepository } from "../../../../src/domain/interfaces/repositories/user-repository";
 
 describe("ReadUserUseCase", () => {
   const users: User[] = [

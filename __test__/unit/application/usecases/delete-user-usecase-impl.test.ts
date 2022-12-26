@@ -2,8 +2,8 @@ import * as TypeMoq from "typemoq";
 import { DeleteUserUseCaseImpl } from "../../../../src/application/usecases/delete-user-usecase-impl";
 import { Failure, Success } from "../../../../src/core/result";
 import { User } from "../../../../src/domain/entities/user";
-import { UserRepository } from "../../../../src/domain/repositories/user-repository";
-import { DeleteUserUseCaseParam } from "../../../../src/domain/usecases/delete-user-usecase";
+import { UserRepository } from "../../../../src/domain/interfaces/repositories/user-repository";
+import { DeleteUserUseCaseParam } from "../../../../src/domain/interfaces/usecases/delete-user-usecase";
 
 describe("DeleteUserUseCase", () => {
   let users: User[] = [

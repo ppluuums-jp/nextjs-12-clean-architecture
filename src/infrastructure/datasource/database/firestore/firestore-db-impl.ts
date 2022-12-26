@@ -7,7 +7,7 @@ import { InternalError } from "../../../../core/error/internal-error";
 import { NetworkError } from "../../../../core/error/network-error";
 import { NotFoundError } from "../../../../core/error/not-found-error";
 import { Failure, Result, Success } from "../../../../core/result";
-import { FirestoreDB } from "./firestore-db";
+import { FirestoreDB } from "../../../../domain/interfaces/datasource/firestore-db";
 import { FSInsertUserParam } from "./model/insert-user-param";
 import { FSUpdateUserParam } from "./model/update-user-param";
 import { FSUser } from "./model/user";

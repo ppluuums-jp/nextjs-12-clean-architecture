@@ -1,6 +1,6 @@
-import { Result } from "../../core/result";
-import { User } from "../entities/user";
-import { Gender } from "../values/gender";
+import { Result } from "../../../core/result";
+import { User } from "../../entities/user";
+import { Gender } from "../../values/gender";
 
 export interface UserRepository {
   create(params: {

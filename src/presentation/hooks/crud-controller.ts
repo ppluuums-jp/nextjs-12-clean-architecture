@@ -1,9 +1,9 @@
 import { container } from "../../di/inversify.config";
 import { TYPES } from "../../di/types";
-import { CreateUserUseCase } from "../../domain/usecases/create-user-usecase";
-import { DeleteUserUseCase } from "../../domain/usecases/delete-user-usecase";
-import { ReadAllUsersUseCase } from "../../domain/usecases/read-all-users-usecase";
-import { UpdateUserUseCase } from "../../domain/usecases/update-user-usecase";
+import { CreateUserUseCase } from "../../domain/interfaces/usecases/create-user-usecase";
+import { DeleteUserUseCase } from "../../domain/interfaces/usecases/delete-user-usecase";
+import { ReadAllUsersUseCase } from "../../domain/interfaces/usecases/read-all-users-usecase";
+import { UpdateUserUseCase } from "../../domain/interfaces/usecases/update-user-usecase";
 import {
   toastCreateParams,
   toastDeleteParams,

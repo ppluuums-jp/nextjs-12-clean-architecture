@@ -2,11 +2,11 @@ import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { Failure, Result, Success } from "../../core/result";
 import { TYPES } from "../../di/types";
-import type { UserRepository } from "../../domain/repositories/user-repository";
+import type { UserRepository } from "../../domain/interfaces/repositories/user-repository";
 import {
   UpdateUserUseCase,
   UpdateUserUseCaseParam,
-} from "../../domain/usecases/update-user-usecase";
+} from "../../domain/interfaces/usecases/update-user-usecase";
 
 @injectable()
 export class UpdateUserUseCaseImpl implements UpdateUserUseCase {

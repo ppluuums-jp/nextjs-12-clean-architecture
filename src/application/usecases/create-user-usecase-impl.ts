@@ -3,11 +3,11 @@ import "reflect-metadata";
 import { InternalError } from "../../core/error/internal-error";
 import { Failure, Result, Success } from "../../core/result";
 import { TYPES } from "../../di/types";
-import type { UserRepository } from "../../domain/repositories/user-repository";
+import type { UserRepository } from "../../domain/interfaces/repositories/user-repository";
 import {
   CreateUserUseCase,
   CreateUserUseCaseParam,
-} from "../../domain/usecases/create-user-usecase";
+} from "../../domain/interfaces/usecases/create-user-usecase";
 
 @injectable()
 export class CreateUserUseCaseImpl implements CreateUserUseCase {

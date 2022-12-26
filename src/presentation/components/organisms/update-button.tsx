@@ -1,5 +1,5 @@
 import React from "react";
-import { useCrudController } from "../../controllers/crud-controller";
+import { useCrudController } from "../../hooks/crud-controller";
 import { RoundButton } from "../molecules/round-button";
 import { toastHandler } from "../molecules/toast";
 
