@@ -4,14 +4,14 @@ This repo provides simple CRUD application based on Clean Architecture structure
 
 <img width="400" src=https://user-images.githubusercontent.com/104049111/209498352-4823b04c-7513-4d70-8de6-3372ead61658.png></img>
 
-To try it out, prepare your firebase project and ``.env`` file;
+To try it out, prepare your firebase project and ``.env`` file.
 
 ### Some Preps
 
 1. Add web app to your firebase project and Create firestore database with `user` collection.
 2. Copy your firebase config and paste it your .env file.
 
-It's going to be like following. (You need to add prefix `NEXT_PUBLIC` to use firebase library on client side.)
+It's going to be like the following. (You need to add prefix `NEXT_PUBLIC` to use firebase library on client side.)
 
 ```
 ## Firebase Setting
