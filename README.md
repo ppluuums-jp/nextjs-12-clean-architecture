@@ -2,7 +2,9 @@
 
 This repo provides simple CRUD application based on Clean Architecture structure.
 
-To try it out, prepare your firebase project and .env file;
+<img width="400" src=https://user-images.githubusercontent.com/104049111/209498352-4823b04c-7513-4d70-8de6-3372ead61658.png></img>
+
+To try it out, prepare your firebase project and ``.env`` file;
 
 ### Some Preps
 
