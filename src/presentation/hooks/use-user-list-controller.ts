@@ -10,16 +10,16 @@ type UserListState = {
 };
 
 const userState = selectorFamily<UserState, string>({
-  key: 'user-state',
+  key: "user-state",
   get: (id) => async () => {
     return await useUserListController().findById(id);
-  }
-})
+  },
+});
 
 const selectedUserState = atomFamily<UserState, string>({
-  key: 'selected-user-state',
+  key: "selected-user-state",
   default: undefined,
-})
+});
 
 const userListState = atom<UserListState>({
   key: "user-list-state",
@@ -35,21 +35,19 @@ export const useUserListController = () => {
   async function fetch(): Promise<void> {
     setUsers({
       users: [
-        {id: "1", name: "kodai"},
-        {id: "2", name: "shinpei"},
+        { id: "1", name: "name_1" },
+        { id: "2", name: "name_2" },
       ],
     });
   }
 
   async function findById(id: string): Promise<UserState> {
-    return {id: "1", name: "kodai"};
+    return { id: "1", name: "name_1" };
   }
 
-  function selectUser(id: string) {
+  function selectUser(id: string) {}
 
-  }
-
-  return {users, reload: fetch, findById};
+  return { users, reload: fetch, findById };
 };
 
 export const useUserController = (id: string) => {
@@ -62,5 +60,5 @@ export const useUserController = (id: string) => {
     });
   }
 
-  return {user, fetch};
-}
+  return { user, fetch };
+};
