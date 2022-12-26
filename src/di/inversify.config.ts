@@ -4,14 +4,14 @@ import { DeleteUserUseCaseImpl } from "../application/usecases/delete-user-useca
 import { ReadAllUsersUseCaseImpl } from "../application/usecases/read-all-users-usecase-impl";
 import { ReadUserUseCaseImpl } from "../application/usecases/read-user-usecase-impl";
 import { UpdateUserUseCaseImpl } from "../application/usecases/update-user-usecase-impl";
-import { UserRepository } from "../domain/repositories/user-repository";
-import { CreateUserUseCase } from "../domain/usecases/create-user-usecase";
-import { DeleteUserUseCase } from "../domain/usecases/delete-user-usecase";
-import { ReadAllUsersUseCase } from "../domain/usecases/read-all-users-usecase";
-import { ReadUserUseCase } from "../domain/usecases/read-user-usecase";
-import { UpdateUserUseCase } from "../domain/usecases/update-user-usecase";
-import { FirestoreDB } from "../infrastructure/datastore/database/firestore/firestore-db";
-import { FirestoreDBImpl } from "../infrastructure/datastore/database/firestore/firestore-db-impl";
+import { FirestoreDB } from "../domain/interfaces/datasource/firestore-db";
+import { UserRepository } from "../domain/interfaces/repositories/user-repository";
+import { CreateUserUseCase } from "../domain/interfaces/usecases/create-user-usecase";
+import { DeleteUserUseCase } from "../domain/interfaces/usecases/delete-user-usecase";
+import { ReadAllUsersUseCase } from "../domain/interfaces/usecases/read-all-users-usecase";
+import { ReadUserUseCase } from "../domain/interfaces/usecases/read-user-usecase";
+import { UpdateUserUseCase } from "../domain/interfaces/usecases/update-user-usecase";
+import { FirestoreDBImpl } from "../infrastructure/datasource/database/firestore/firestore-db-impl";
 import { UserRepositoryImpl } from "../infrastructure/repositories/user-repository-impl";
 import { TYPES } from "./types";
 

@@ -2,8 +2,8 @@ import * as TypeMoq from "typemoq";
 import { CreateUserUseCaseImpl } from "../../../../src/application/usecases/create-user-usecase-impl";
 import { Failure, Success } from "../../../../src/core/result";
 import { User } from "../../../../src/domain/entities/user";
-import { UserRepository } from "../../../../src/domain/repositories/user-repository";
-import { CreateUserUseCaseParam } from "../../../../src/domain/usecases/create-user-usecase";
+import { UserRepository } from "../../../../src/domain/interfaces/repositories/user-repository";
+import { CreateUserUseCaseParam } from "../../../../src/domain/interfaces/usecases/create-user-usecase";
 
 describe("CreateUserUseCase", () => {
   let users: User[] = [

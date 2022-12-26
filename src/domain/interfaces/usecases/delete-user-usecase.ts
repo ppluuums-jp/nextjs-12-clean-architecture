@@ -1,4 +1,4 @@
-import { Result } from "../../core/result";
+import { Result } from "../../../core/result";
 import { UseCase } from "./usecase";
 
 export interface DeleteUserUseCase

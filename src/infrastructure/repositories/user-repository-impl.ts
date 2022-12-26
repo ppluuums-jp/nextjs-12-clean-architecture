@@ -3,11 +3,11 @@ import "reflect-metadata";
 import { Failure, Result, Success } from "../../core/result";
 import { TYPES } from "../../di/types";
 import { User } from "../../domain/entities/user";
-import { UserRepository } from "../../domain/repositories/user-repository";
+import type { FirestoreDB } from "../../domain/interfaces/datasource/firestore-db";
+import { UserRepository } from "../../domain/interfaces/repositories/user-repository";
 import { Gender } from "../../domain/values/gender";
-import type { FirestoreDB } from "../datastore/database/firestore/firestore-db";
-import { fsGenderConvertor } from "../datastore/database/firestore/model/gender";
-import { fsUserConverter } from "../datastore/database/firestore/model/user";
+import { fsGenderConvertor } from "../datasource/database/firestore/model/gender";
+import { fsUserConverter } from "../datasource/database/firestore/model/user";
 
 @injectable()
 export class UserRepositoryImpl implements UserRepository {

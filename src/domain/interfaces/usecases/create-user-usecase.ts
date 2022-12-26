@@ -1,5 +1,5 @@
-import { Result } from "../../core/result";
-import { Gender } from "../values/gender";
+import { Result } from "../../../core/result";
+import { Gender } from "../../values/gender";
 import { UseCase } from "./usecase";
 
 export interface CreateUserUseCase

@@ -3,11 +3,11 @@ import "reflect-metadata";
 import { Failure, Result, Success } from "../../core/result";
 import { TYPES } from "../../di/types";
 import { User } from "../../domain/entities/user";
-import type { UserRepository } from "../../domain/repositories/user-repository";
+import type { UserRepository } from "../../domain/interfaces/repositories/user-repository";
 import {
   ReadAllUsersUseCase,
   ReadAllUsersUseCaseParam,
-} from "../../domain/usecases/read-all-users-usecase";
+} from "../../domain/interfaces/usecases/read-all-users-usecase";
 
 @injectable()
 export class ReadAllUsersUseCaseImpl implements ReadAllUsersUseCase {
