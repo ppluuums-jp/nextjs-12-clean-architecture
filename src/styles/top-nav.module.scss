@@ -1,0 +1,10 @@
+.topNav {
+  background-color: #66bf3c;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 4rem;
+}
+
+.gridButton {
+  grid-column: 3 / 3;
+}
